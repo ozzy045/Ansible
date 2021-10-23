@@ -1,0 +1,39 @@
+    - name: "Run command npm init -y (with 'cmd' parameter)."
+      command:
+        cmd: apt-get update
+
+    #Install nodejs
+    - name: "Add nodejs apt key"
+      apt_key:
+        url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
+        state: present
+
+    - name: install node
+      shell: |
+        curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash - && sudo apt-get install -y nodejs
+
+     #Install nodejs packages
+    - name: "Run command npm init -y (with 'cmd' parameter)."
+      command:
+        cmd: npm init -y
+
+    - name: "install more packages with cmd."
+      command:
+        cmd: npm install @hapi/hapi@19 @hapi/bell@12 @hapi/boom@9 @hapi/cookie@11 @hapi/inert@6 @hapi/joi@17 @hapi/vision@6 dotenv@8 ejs@3 postgres@1 -y
+
+    - name: "Run npm install --save-dev nodemon@2 -y."
+      command:
+        cmd: npm install --save-dev nodemon@2 -y
+
+    #Clone the git repo
+    - name: "Clone a github repository"
+      git:
+        repo: https://github.com/reverentgeek/node-weight-tracker.git
+        dest: /home/orzaguri/node-weight-tracker
+        clone: yes
+        update: yes
+    #Install npm package
+    - name: "Install packages based on package.json."
+      npm:
+        path: "/home/orzaguri/node-weight-tracker"
+        state: latest

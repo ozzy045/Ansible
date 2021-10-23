@@ -1,0 +1,25 @@
+    - name: "Run initdb"
+      command: npm run initdb
+      args:
+        chdir: "/home/orzaguri/node-weight-tracker/"
+      run_once: true
+
+    - name: "Install PM2"
+      npm:
+        name: pm2
+        global: yes
+
+    - name: "run the app"
+      command: sudo pm2 start npm -- run dev --watch
+      args:
+        chdir: "/home/orzaguri/node-weight-tracker/"
+
+    - name: "pm2 save"
+      command: pm2 save
+      args:
+        chdir: "/home/orzaguri/node-weight-tracker/"
+
+    - name: "pm2 startup"
+      command: pm2 startup
+      args:
+        chdir: "/home/orzaguri/node-weight-tracker/"

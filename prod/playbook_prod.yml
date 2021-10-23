@@ -1,0 +1,10 @@
+---
+  - hosts: webservers
+    become : true
+    roles:
+      - install_prerequisites
+      - configure_env
+      - app_run
+
+
+
